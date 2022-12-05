@@ -5,7 +5,7 @@ class LandlordDB : DBConnection, ICrud<Landlord>
         throw new NotImplementedException();
     }
 
-    public void Delete(Landlord obj)
+    public void Delete(int id)
     {
         throw new NotImplementedException();
     }

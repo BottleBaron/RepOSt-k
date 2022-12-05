@@ -5,7 +5,7 @@ class RoomDB : DBConnection, ICrud<Room>
         throw new NotImplementedException();
     }
 
-    public void Delete(Room obj)
+    public void Delete(int id)
     {
         throw new NotImplementedException();
     }
