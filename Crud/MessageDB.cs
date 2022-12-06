@@ -1,6 +1,6 @@
 using Dapper;
 
-class MessageDB : DBConnection, ICrud<Message>
+class MessageDB : DBConnection, ICrud<Message>, ISelectWhere<Message>
 {
     public int Create(Message obj)
     {
@@ -74,6 +74,34 @@ class MessageDB : DBConnection, ICrud<Message>
         try
         {
             connection.Execute(query, parameters);
+        }
+        catch (System.Exception e)
+        {
+            throw e;
+        }
+    }
+
+    Message ISelectWhere<Message>.SelectSingle(int id)
+    {
+        // Not in use
+        throw new NotImplementedException();
+    }
+
+    List<Message> ISelectWhere<Message>.SelectWhere(int id)
+    {
+        string query = "SELECT id AS Id, conversation_id AS ConversationId, tenant_id AS TenantId," +
+        " landlord_id AS LandlordId, message AS Message_ FROM messages WHERE conversation_id = @ conversationId;";
+
+        using var connection = DBConnect();
+
+        try
+        {
+            var result = connection.Query<Message>(query).ToList();
+            return result;
+        }
+        catch (System.InvalidOperationException)
+        {
+            return null;
         }
         catch (System.Exception e)
         {
