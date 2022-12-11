@@ -2,11 +2,8 @@
 {
     private static void Main(string[] args)
     {
-        TestGround testGround = new();
-
         Controller inputController = new();
 
-        Console.Title = "-- REPOSTÖK --";
         Console.Clear();
         Console.Write("Welcome to RepOStök. Press any key to continue:");
         Console.ReadKey();
@@ -23,7 +20,7 @@
                 case ConsoleKey.D1:
                     {
                         Console.Clear();
-                        Console.Write("Please eter your username:");
+                        Console.Write("Please enter your username:");
                         string? loginNameInput = Console.ReadLine();
                         Console.Write("Please enter your password:");
                         string? passwordInput = Console.ReadLine();

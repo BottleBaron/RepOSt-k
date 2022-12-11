@@ -10,6 +10,12 @@ class Controller
         return 0;
     }
 
+    public bool CheckIfNegative(int input)
+    {
+        if (input < 0) return true;
+        return false;
+    }
+
     public Landlord TryLogin(string loginName, string password)
     {
         ICrud<Landlord> landlordCaller;

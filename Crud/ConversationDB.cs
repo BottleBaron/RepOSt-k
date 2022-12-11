@@ -1,6 +1,6 @@
 using Dapper;
 
-class ConversationDB : DBConnection, ICrud<Conversation>
+class ConversationDB : DBConnection, ICrud<Conversation>, ISelectSingle<Conversation>, ISelectWhere<Conversation>
 {
     public int Create(Conversation obj)
     {
@@ -50,6 +50,55 @@ class ConversationDB : DBConnection, ICrud<Conversation>
         try
         {
             var result = connection.Query<Conversation>(query).ToList();
+            return result;
+        }
+        catch (System.InvalidOperationException)
+        {
+            return null;
+        }
+        catch (System.Exception e)
+        {
+            throw e;
+        }
+    }
+
+    // TODO: use this to only show tenants convos started by themselves
+    public List<Conversation> SelectWhere(int id)
+    {
+        var parameters = new { id = id };
+
+        string query = "SELECT id AS 'Id', tenant_id AS 'TenantId', title AS 'Title', is_archived AS 'IsArchived'" +
+        "FROM issue_conversations WHERE tenant_id = @id;";
+
+        using var connection = DBConnect();
+
+        try
+        {
+            var result = connection.Query<Conversation>(query, parameters).ToList();
+            return result;
+        }
+        catch (System.InvalidOperationException)
+        {
+            return null;
+        }
+        catch (System.Exception e)
+        {
+            throw e;
+        }
+    }
+
+    public Conversation SelectSingle(int id)
+    {
+        var parameters = new { id = id };
+
+        string query = "SELECT id AS 'Id', tenant_id AS 'TenantId', title AS 'Title', is_archived AS 'IsArchived'" +
+        "FROM issue_conversations WHERE id = @id;";
+
+        using var connection = DBConnect();
+
+        try
+        {
+            var result = connection.QuerySingle<Conversation>(query, parameters);
             return result;
         }
         catch (System.InvalidOperationException)

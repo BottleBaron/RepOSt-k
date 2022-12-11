@@ -1,6 +1,6 @@
 using Dapper;
 
-class TenantDB : DBConnection, ICrud<Tenant>
+class TenantDB : DBConnection, ICrud<Tenant>, ISelectSingle<Tenant>
 {
     public int Create(Tenant obj)
     {
@@ -50,6 +50,30 @@ class TenantDB : DBConnection, ICrud<Tenant>
         try
         {
             var result = connection.Query<Tenant>(query).ToList();
+            return result;
+        }
+        catch (InvalidOperationException)
+        {
+            return null;
+        }
+        catch (System.Exception e)
+        {
+            throw e;
+        }
+    }
+
+    public Tenant SelectSingle(int id)
+    {
+        var parameters = new {id = id};
+
+        string query = "SELECT id AS Id, full_name AS FullName, email AS Email, adress AS Adress" +
+        " FROM tenants WHERE id = @id;";
+
+        using var connection = DBConnect();
+
+        try
+        {
+            var result = connection.QuerySingle<Tenant>(query, parameters);
             return result;
         }
         catch (InvalidOperationException)

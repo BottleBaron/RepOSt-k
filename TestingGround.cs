@@ -13,7 +13,7 @@ class TestingGround : DBConnection
 
         foreach (var row in selectedValues)
         {
-            Console.WriteLine(row.item1 + "|" + row.item2);
+            Console.WriteLine(row.T1 + "|" + row.T2);
         }
 
 
@@ -22,26 +22,26 @@ class TestingGround : DBConnection
 
         foreach (var message in selectedMessages)
         {
-            Console.WriteLine(message.item3 + ": " + message.item2 + "\n");
+            Console.WriteLine(message.T3 + ": " + message.T2 + "\n");
         }
 
 
         // Search by tenant
         List<SelectMapper> roomsByTenant = miscDb.SelectByTenant(1);
 
-        Console.WriteLine($"-< ROOMS ASSIGNED TO: {roomsByTenant[0].item2} >-");
+        Console.WriteLine($"-< ROOMS ASSIGNED TO: {roomsByTenant[0].T2} >-");
         foreach (var room in roomsByTenant)
         {
-            Console.Write($" [{room.item1}] ");
+            Console.Write($" [{room.T1}] ");
         }
         Console.WriteLine("");
 
         List<SelectMapper> tenantsByRoom = miscDb.SelectByRoom(3);
 
-        Console.WriteLine($"-< TENANTS ASSIGNED TO: ROOM {tenantsByRoom[0].item1}>-");
+        Console.WriteLine($"-< TENANTS ASSIGNED TO: ROOM {tenantsByRoom[0].T1}>-");
         foreach (var tenant in tenantsByRoom)
         {
-            Console.Write($" [{tenant.item2}] ");
+            Console.Write($" [{tenant.T2}] ");
         }
         Console.WriteLine("");
 

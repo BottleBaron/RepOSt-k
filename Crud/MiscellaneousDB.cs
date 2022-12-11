@@ -4,7 +4,7 @@ class MiscellaneousDB : DBConnection
 {
     public List<SelectMapper> GetAllRoomsAndTenants()
     {
-        string query = "SELECT r.id AS 'item1', t.full_name AS 'item2' FROM rooms_to_tenants rt" +
+        string query = "SELECT r.id AS 'T1', t.full_name AS 'T2' FROM rooms_to_tenants rt" +
         " INNER JOIN rooms r ON r.id = rt.room_id" +
         " INNER JOIN tenants t ON t.id = rt.tenant_id;";
 
@@ -29,11 +29,11 @@ class MiscellaneousDB : DBConnection
     {
         var parameters = new { id = conversationId };
 
-        string query = "SELECT m.id AS 'item1', m.message AS 'item2', t.full_name AS 'item3' FROM messages m" +
+        string query = "SELECT m.id AS 'T1', m.message AS 'T2', t.full_name AS 'T3' FROM messages m" +
         " INNER JOIN tenants t ON t.id = m.tenant_id" +
         " WHERE m.conversation_id = @id;" +
 
-        " SELECT m.id AS 'item1', m.message AS 'item2', l.full_name AS 'item3' FROM messages m" +
+        " SELECT m.id AS 'T1', m.message AS 'T2', l.full_name AS 'T3' FROM messages m" +
         " INNER JOIN landlords l ON l.id = m.landlord_id" +
         " WHERE m.conversation_id = @id;";
 
@@ -46,7 +46,7 @@ class MiscellaneousDB : DBConnection
             var result2 = multi.Read<SelectMapper>().ToList();
 
             result.AddRange(result2);
-            result.Sort((x, y) => (int)x?.item1 - (int)y?.item1);
+            result.Sort((x, y) => (int)x?.T1 - (int)y?.T1);
 
             return result;
         }
@@ -64,7 +64,7 @@ class MiscellaneousDB : DBConnection
     {
         var parameters = new { id = id };
 
-        string query = "SELECT r.id AS 'item1', t.full_name AS 'item2' FROM rooms_to_tenants rt" +
+        string query = "SELECT r.id AS 'T1', t.full_name AS 'T2' FROM rooms_to_tenants rt" +
         " INNER JOIN rooms r ON r.id = rt.room_id" +
         " INNER JOIN tenants t ON t.id = rt.tenant_id" +
         " WHERE t.id = @id;";
@@ -90,7 +90,7 @@ class MiscellaneousDB : DBConnection
     {
         var parameters = new { id = id };
 
-        string query = "SELECT t.id AS 'item1', t.full_name AS 'item2' FROM rooms_to_tenants rt" +
+        string query = "SELECT t.id AS 'T1', t.full_name AS 'T2' FROM rooms_to_tenants rt" +
         " INNER JOIN tenants t ON t.id = rt.tenant_id" +
         " WHERE rt.room_id = @id;";
 

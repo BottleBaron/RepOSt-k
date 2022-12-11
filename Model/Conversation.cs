@@ -7,14 +7,14 @@ internal class Conversation
     public bool IsArchived { get; set; }
 
     // Runtime props
-    public List<Message>? IssueMessages { get; set; }
+    public List<SelectMapper>? IssueMessages { get; set; }
 
-    public Conversation()
+    public void GetAssociatedMessages()
     {
-        if (Id !< 1)
+        if (Id > 0)
         {
-            ISelectWhere<Message> messageCaller = new MessageDB();
-            IssueMessages = messageCaller.SelectWhere(this.Id);
+            MiscellaneousDB miscDb = new();
+            IssueMessages = miscDb.GetMessagesWithNames(Id);
         }
     }
 }
