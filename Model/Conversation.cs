@@ -9,9 +9,12 @@ internal class Conversation
     // Runtime props
     public List<Message>? IssueMessages { get; set; }
 
-    //TODO: Implement message getter v
     public Conversation()
     {
-
+        if (Id !< 1)
+        {
+            ISelectWhere<Message> messageCaller = new MessageDB();
+            IssueMessages = messageCaller.SelectWhere(this.Id);
+        }
     }
 }

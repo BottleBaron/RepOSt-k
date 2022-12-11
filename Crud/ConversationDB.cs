@@ -42,7 +42,7 @@ class ConversationDB : DBConnection, ICrud<Conversation>
 
     public List<Conversation> Read()
     {
-        string query = "SELECT id AS Id, tenant_id AS TenantId, title AS Title, is_archived AS IsArchived" +
+        string query = "SELECT id AS 'Id', tenant_id AS 'TenantId', title AS 'Title', is_archived AS 'IsArchived'" +
         "FROM issue_conversations;";
 
         using var connection = DBConnect();

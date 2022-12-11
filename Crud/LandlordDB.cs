@@ -42,8 +42,8 @@ class LandlordDB : DBConnection, ICrud<Landlord>
 
     public List<Landlord> Read()
     {
-        string query = "SELECT id AS Id, full_name AS FullName, login_name AS LoginName," +
-        " password AS Password FROM landlords";
+        string query = "SELECT id AS 'Id', full_name AS 'FullName', login_name AS 'LoginName'," +
+        " password AS 'Password' FROM landlords";
 
         using var connection = DBConnect();
 

@@ -26,7 +26,7 @@ internal class BillDB : DBConnection, ICrud<Bill>
 
     public void Delete(int id)
     {
-     
+        var parameters = new DynamicParameters(id);
  
         string query = "DELETE FROM bills WHERE id = @id;";
 
@@ -44,9 +44,9 @@ internal class BillDB : DBConnection, ICrud<Bill>
 
     public List<Bill> Read()
     {
-        string query = "SELECT id AS Id, tenant_id AS TenantId, room_id AS RoomId, landlord_id AS LandlordId," +
-        " bill_date AS BillDate, payment_due_date AS PaymentDueDate, ocr_number AS OcrNumber, price AS Price," +
-        " paid_date AS PaidDate FROM bills;";
+        string query = "SELECT id AS 'Id', tenant_id AS 'TenantId', room_id AS 'RoomId', landlord_id AS 'LandlordId'," +
+        " bill_date AS 'BillDate', payment_due_date AS 'PaymentDueDate', ocr_number AS 'OcrNumber', price AS 'Price'," +
+        " paid_date AS 'PaidDate' FROM bills;";
 
         using var connection = DBConnect();
 

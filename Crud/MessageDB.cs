@@ -81,16 +81,10 @@ class MessageDB : DBConnection, ICrud<Message>, ISelectWhere<Message>
         }
     }
 
-    Message ISelectWhere<Message>.SelectSingle(int id)
+    List<Message> ISelectWhere<Message>.SelectWhere(int conversation_id)
     {
-        // Not in use
-        throw new NotImplementedException();
-    }
-
-    List<Message> ISelectWhere<Message>.SelectWhere(int id)
-    {
-        string query = "SELECT id AS Id, conversation_id AS ConversationId, tenant_id AS TenantId," +
-        " landlord_id AS LandlordId, message AS Message_ FROM messages WHERE conversation_id = @ conversationId;";
+        string query = "SELECT id AS 'Id', conversation_id AS 'ConversationId', tenant_id AS 'TenantId'," +
+        " landlord_id AS 'LandlordId', message AS 'Message_' FROM messages WHERE conversation_id = @ conversationId;";
 
         using var connection = DBConnect();
 
