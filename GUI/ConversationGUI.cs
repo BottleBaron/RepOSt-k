@@ -2,7 +2,7 @@ class ConversationGUI
 {
     private Conversation activeConversation;
     private MessageManager messageManager = new();
-    ConversationManager convoManager = new();
+    private ConversationManager convoManager = new();
     private bool isReturning = false;
 
     public ConversationGUI(int conversationId)
@@ -17,18 +17,17 @@ class ConversationGUI
     public bool EnterConversation(bool isLandLord, int currentUserId)
     {
 
-        if (activeConversation == null) return false;
+        if (activeConversation == null || activeConversation.IssueMessages == null) return false;
 
         while (true)
         {
             Console.Clear();
-            if (activeConversation.IssueMessages != null)
+
+            foreach (var message in activeConversation.IssueMessages)
             {
-                foreach (var message in activeConversation.IssueMessages)
-                {
-                    Console.WriteLine(message.T3 + ": " + message.T2 + "\n");
-                }
+                Console.WriteLine(message.T3 + ": " + message.T2 + "\n");
             }
+
 
             if (isLandLord) AdminInteractions(currentUserId);
             else UserInteractions(currentUserId);
@@ -79,7 +78,11 @@ class ConversationGUI
         }
         else if (keyPress.Key == ConsoleKey.U) activeConversation.GetAssociatedMessages();
         else if (keyPress.Key == ConsoleKey.R) isReturning = true;
-        else if (keyPress.Key == ConsoleKey.X) convoManager.ArchiveConversation(activeConversation);
+        else if (keyPress.Key == ConsoleKey.X)
+        {
+            convoManager.ArchiveConversation(activeConversation);
+            isReturning = true;
+        }
     }
 
 

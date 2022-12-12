@@ -62,7 +62,6 @@ class ConversationDB : DBConnection, ICrud<Conversation>, ISelectSingle<Conversa
         }
     }
 
-    // TODO: use this to only show tenants convos started by themselves
     public List<Conversation> SelectWhere(int id)
     {
         var parameters = new { id = id };

@@ -79,7 +79,7 @@ class LandlordGUI
         int inputId = inputController.TryIntConversion(input);
 
         Manager manager = new();
-        if (!inputController.CheckIfNegative(inputId))
+        if (!inputController.CheckIfNegative(inputId) && inputId != 0)
         {
             List<SelectMapper>? roomsByTenant = manager.SearchByTenant(inputId);
 
@@ -105,7 +105,7 @@ class LandlordGUI
         int inputId = inputController.TryIntConversion(input);
 
         Manager manager = new();
-        if (!inputController.CheckIfNegative(inputId))
+        if (!inputController.CheckIfNegative(inputId) && inputId != 0)
         {
             List<SelectMapper>? tenantsByRoom = manager.SearchByRoom(inputId);
 
@@ -125,8 +125,8 @@ class LandlordGUI
     private void IssueConversationsSubmenu()
     {
         Console.Clear();
-        ConversationDB convoDb = new();
-        List<Conversation>? listOfConversations = convoDb.Read();
+        ConversationManager conversationManager = new();
+        List<Conversation>? listOfConversations = conversationManager.GetNonArchivedConvos();
 
         if (listOfConversations != null)
         {
@@ -143,7 +143,7 @@ class LandlordGUI
         int inputId = inputController.TryIntConversion(input);
 
         ConversationGUI chosenConversation;
-        if (!inputController.CheckIfNegative(inputId))
+        if (!inputController.CheckIfNegative(inputId) && inputId != 0)
         {
             chosenConversation = new(inputId);
             bool success = chosenConversation.EnterConversation(true, activeLandlord.Id);
@@ -158,6 +158,5 @@ class LandlordGUI
 
     private void ShowbillsSubmenu()
     {
-        throw new NotImplementedException();
     }
 }
