@@ -4,59 +4,61 @@ class TenantGUI
 
     public void MainMenu(Tenant activeTenant)
     {
-        Console.Clear();
+        while (true)
+        {
+            Console.Clear();
 
-        string[] tenantMenuText = new string[]
-        {
-            "1.) Issue Conversations",
-            "2.) Pay this months bill [Not Implemented]",
-            "3.) Sign up for a new room [Not Implemented]",
-            "4.) Remove yourself from a room [Not Implemented]",
-            "R.) Return to Main Menu",
-            "Q.) Quit"
-        };
-        foreach (var line in tenantMenuText)
-        {
-            Console.WriteLine(line);
+            string[] tenantMenuText = new string[]
+            {
+                "1.) Issue Conversations",
+                "2.) Pay this months bill [Not Implemented]",
+                "3.) Sign up for a new room [Not Implemented]",
+                "4.) Remove yourself from a room [Not Implemented]",
+                "R.) Return to Main Menu",
+                "Q.) Quit"
+            };
+            foreach (var line in tenantMenuText)
+            {
+                Console.WriteLine(line);
+            }
+            var keyPress = Console.ReadKey(true);
+
+            switch (keyPress.Key)
+            {
+                case (ConsoleKey.D1):
+                    IssueConversationsSubmenu(activeTenant.Id);
+                    break;
+                case (ConsoleKey.D2):
+                    PayBillSubMenu();
+                    break;
+                case (ConsoleKey.D3):
+                    RoomSignUpSubMenu();
+                    break;
+                case (ConsoleKey.D4):
+                    RoomSignDownSubMenu();
+                    break;
+                case (ConsoleKey.R):
+                    return;
+                case (ConsoleKey.Q):
+                    Environment.Exit(0);
+                    break;
+            }
         }
-        var keyPress = Console.ReadKey(true);
-
-        switch (keyPress.Key)
-        {
-            case (ConsoleKey.D1):
-                IssueConversationsSubmenu(activeTenant.Id);
-                break;
-            case (ConsoleKey.D2):
-                PayBillSubMenu();
-                break;
-            case (ConsoleKey.D3):
-                RoomSignUpSubMenu();
-                break;
-            case (ConsoleKey.D4):
-                RoomSignDownSubMenu();
-                break;
-            case (ConsoleKey.R):
-                return;
-            case (ConsoleKey.Q):
-                Environment.Exit(0);
-                break;
-        }
-
     }
 
     private void PayBillSubMenu()
     {
-        // Need to create rooms to tenants DB for this
+        // Too heavy implementation
     }
 
     private void RoomSignUpSubMenu()
     {
-        // Need to create rooms to tenants DB for this
+
     }
 
     private void RoomSignDownSubMenu()
     {
-        throw new NotImplementedException();
+        // Need to create rooms to tenants DB for this
     }
 
     private void IssueConversationsSubmenu(int tenantId)

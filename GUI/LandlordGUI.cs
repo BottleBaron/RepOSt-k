@@ -62,9 +62,10 @@ class LandlordGUI
 
         if (listOfTenantsAndRooms != null)
         {
+            Console.WriteLine("Rooms: | Tenants:");
             foreach (var row in listOfTenantsAndRooms)
             {
-                Console.WriteLine($"{row.T1} | {row.T2}");
+                Console.WriteLine($"     {row.T1} | {row.T2}");
             }
         }
         Console.ReadKey();
@@ -111,10 +112,10 @@ class LandlordGUI
 
             if (tenantsByRoom != null)
             {
-                Console.WriteLine($"-< TENANTS ASSIGNED TO: ROOM {tenantsByRoom[0].T1}>-");
+                Console.WriteLine($"-< TENANTS ASSIGNED TO: ROOM {inputId}>-");
                 foreach (var tenant in tenantsByRoom)
                 {
-                    Console.Write($" [{tenant.T2}] ");
+                    Console.WriteLine($" [ID: {tenant.T1} | {tenant.T2}] ");
                 }
                 Console.WriteLine("");
             }
